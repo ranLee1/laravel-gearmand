@@ -6,6 +6,13 @@ use Phphc\Gearman\Connectors\GearmanConnector;
 
 class GearmanServiceProvider extends ServiceProvider
 {
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/Service' => base_path('app/Service'),
+            __DIR__.'/Commands/Workers.php' => base_path('app/Console/Commands/Workers.php'),
+        ]);
+    }
     /**
      * Register the connectors on the queue manager.
      *
