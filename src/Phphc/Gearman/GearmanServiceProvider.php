@@ -11,7 +11,7 @@ class GearmanServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/Service' => base_path('app/Service'),
             __DIR__.'/Commands/Workers.php' => base_path('app/Console/Commands/Workers.php'),
-        ]);
+        ],'gearman');
     }
     /**
      * Register the connectors on the queue manager.

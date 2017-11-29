@@ -47,20 +47,38 @@ class Workers extends Command
     public function seedWork()
     {
         $sum = 0;
+        //实例化gearman服务的客户端
         $client = new GearmanClient();
-        $client->addServers('127.0.0.1:4730'); //默认参数主机地址：127.0.0.1 端口：4730
+        //默认参数主机地址：127.0.0.1 端口：4730
+        $config = config('queue.gearman');
+        if (isset($config['hosts'])) {
+            foreach ($config['hosts'] as $server) {
+                $client->addServer($server['host'], $server['port']);
+            }
+        } else {
+            $client->addServer($config['host'], $config['port']);
+        }
 
-//可以通过setCompleteCallback函数给计算结果返回给客户端
+        //可以通过setCompleteCallback函数给计算结果返回给客户端
         $client->setCompleteCallback(function (GearmanTask $task) use (&$sum) {
             $sum = $task->data();
-            $this->info("计算结果为:" . $sum . "\n");
+            $this->info("Server results:" . $sum . "\n");
         });
-//添加5个需要累加和的任务
-        $data = ["displayName" => "App\\Services\\SumServer", "job" => "App\\Services\\SumServer", "maxTries" => null, "timeout" => null, "data" => [1, 2]];
 
-        $client->addTask('default', json_encode($data, 1));
+        for ($i = 0; $i < 2; $i++) {
+            //后期版本会封装单独的类来匹配数据项
+            $data = [
+                "displayName" => "App\\Services\\SumServer",
+                "job" => "App\\Services\\SumServer",
+                "maxTries" => null,
+                "timeout" => null,
+                "data" => [1 + $i, 2 + $i]
+            ];
+            //添加任务
+            $client->addTask('default', json_encode($data, 1));
+        }
+        //添加任务
 
-//运行队列中的任务，do系列不需要runTask()
         $client->runTasks();
     }
 }
