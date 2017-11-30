@@ -1,6 +1,16 @@
-# 描述:
+laravel-gearman
+===========
 
-该包是gearmn服务对laravel的一个适配方案,参照 [laravel-gearman](https://github.com/pafelin/laravel-gearman) 进行了扩展，安装之前确保php gearman扩展安装以及gearman服务已正确安装，具体的安装方案可以参考 [gearman服务安装](https://pengbd3.github.io/2017/11/08/gearman1/)
+一个简单的laravel for gearman 服务 
+
+[![Latest Stable Version](https://poser.pugx.org/many/gearman/v/stable)](https://packagist.org/packages/many/gearman)
+[![Build Status](https://travis-ci.org/pengbd3/laravel-gearmand.svg?branch=master)](https://travis-ci.org/pengbd3/laravel-gearmand)
+[![Latest Unstable Version](https://poser.pugx.org/many/gearman/v/unstable)](https://packagist.org/packages/many/gearman)
+[![License](https://poser.pugx.org/many/gearman/license)](https://packagist.org/packages/many/gearman)
+
+# 描述:
+该包是gearmn服务对laravel的一个适配方案,参照 [laravel-gearman](https://github.com/pafelin/laravel-gearman) 
+进行了扩展，安装之前确保php gearman扩展安装以及gearman服务已正确安装，具体的安装方案可以参考 [gearman服务安装](https://pengbd3.github.io/2017/11/08/gearman1/)
 
 # 安装:
 
